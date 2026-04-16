@@ -2,6 +2,8 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
+import mongoose from "mongoose";
+import practice from "./practice/practice.js";
 
 dotenv.config();
 
@@ -18,6 +20,14 @@ const logging = (request, response, next) => {
 app.use(cors());
 app.use(express.json());
 app.use(logging);
+
+mongoose.connect(process.env.MONGODB);
+const db = mongoose.connection;
+db.on("error", console.error.bind(console, "Connection Error:"));
+db.once(
+  "open",
+  console.log.bind(console, "Successfully opened connection to Mongo!")
+);
 
 // Handle the request with HTTP GET method from http://localhost:3000/
 app.get("/", (request, response) => {
@@ -44,6 +54,8 @@ app.get("/echo/:text", (request, response) => {
   }
   response.status(418).send(`You told me to echo ${output}`)
 })
+
+// app.use("/practice", practice);
 
 // Tell the Express app to start listening
 // Let the humans know I am running and listening on 3000
