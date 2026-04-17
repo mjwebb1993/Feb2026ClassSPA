@@ -3,7 +3,7 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
-import practice from "./practice/practice.js";
+import practice from "./practice.js";
 
 dotenv.config();
 
@@ -55,7 +55,7 @@ app.get("/echo/:text", (request, response) => {
   response.status(418).send(`You told me to echo ${output}`)
 })
 
-// app.use("/practice", practice);
+app.use("/practice", practice);
 
 // Tell the Express app to start listening
 // Let the humans know I am running and listening on 3000
