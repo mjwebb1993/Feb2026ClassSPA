@@ -4,6 +4,11 @@ import cors from "cors";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
 import practice from "./practice.js";
+import pizzas from "./controllers/pizzas.js";
+
+// Matt has to do this because his DNS is currently broken
+import dns from "dns";
+dns.setServers(['8.8.8.8', '8.8.4.4']);
 
 dotenv.config();
 
@@ -56,6 +61,7 @@ app.get("/echo/:text", (request, response) => {
 })
 
 app.use("/practice", practice);
+app.use("/pizzas", pizzas);
 
 // Tell the Express app to start listening
 // Let the humans know I am running and listening on 3000
